@@ -1,0 +1,73 @@
+.tree {
+	font-size: 14px;
+	text-align: center;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+.word, .tag, .dependency {
+	text-anchor: middle;
+}
+.word {
+	fill: #555;
+	cursor: default;
+}
+.tag {
+	fill: #777;
+	font-size: .9em;
+}
+.edge, .arrow {
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 1.5;
+}
+.dependency {
+	fill: #ccc;
+	font-size: 15px;
+}
+
+.dependency.active {
+	fill: #3276b1;
+}
+.word.active, .edge.active, .arrow.active {
+	stroke: #3276b1;
+}
+.word.w0 {
+	fill: #ccc;
+}
+.sentences {
+	width: 25%;
+}
+.sentences ul{
+	list-style-type: none;
+	height: 100vw;
+	overflow-y: scroll;
+	float: left;
+	padding-left: 0;
+	margin: 20px 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+.metanet_viewer{
+	width: 70%;
+} 
+.source{
+	background-color: #00FF00;
+	border-radius:10px;
+	border: 2px solid #00FF00;
+	box-shadow: 1px 2px 1px #888888;
+	cursor: pointer;
+	color: #FF0000;
+	
+}
+.target{
+	background-color: #FF0000;
+	border-radius:10px;
+	border: 2px solid #FF0000;
+	box-shadow: 1px 2px 1px #888888;
+	cursor: pointer;
+	color: #00FF00;
+}
+
+.parseFail{
+	color: #888888;
+}
