@@ -7,7 +7,6 @@ import scalatags.JsDom.TypedTag
 import scalatags.JsDom.all._
 import org.scalajs.dom
 import org.scalajs.dom.html
-import scala.scalajs.js
 
 class MetaphorSelector(listElem: String, data: Seq[Sentence], callback: (Sentence, Metaphor) => Unit) {
 
@@ -73,13 +72,6 @@ class MetaphorSelector(listElem: String, data: Seq[Sentence], callback: (Sentenc
   val elems = dom.document.querySelectorAll(listElem)
   assert(elems.length == 1, s"Found more ${elems.length} metaphor list elems")
   val elem = elems(0).asInstanceOf[html.UList]
-  val disp = elem.style.display
-  println(disp)
-  //elem.style.height = "1px"
   for (li <- list) elem.appendChild(li.render)
 
-  //elem.style = style
-  //list.style.display = "none"
-  //dom.window.setTimeout(() => list.style.display = disp, 20)
-  //list.style.display = disp
 }

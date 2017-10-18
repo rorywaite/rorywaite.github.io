@@ -4,7 +4,7 @@ import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 import org.scalajs.dom
 import dom.ext.Ajax
@@ -14,7 +14,7 @@ import scala.scalajs.js.annotation._
 case class Dep(head: String, `type`: String)
 case class Word(idx: Int, form: String, lem: String, pos: String, n: String, dep: Option[Dep])
 case class Sentence(idx: Int, text: String, ctext: String, id: String, word: Seq[Word], lms: Option[Seq[Metaphor]])
-case class Frame(start: Int, end: Int)
+case class Frame(start: Int, end: Int, form: String, framenames: Option[Seq[String]], framefamilies: Option[Seq[String]])
 case class Metaphor(source: Frame, target: Frame)
 
 @JSExportTopLevel("MetaNet")
@@ -39,8 +39,12 @@ object MetaNet {
       sentences <- loadData()
     } {
       val pt = new ParseTree(".tree svg")
-      def updatePt(sen: Sentence, meta: Metaphor) = pt.update(sen)
-      val selector = new MetaphorSelector(".sentences ul", sentences, updatePt)
+      val md = new MetaphorDescription(".metaphor")
+      def updatePt(sen: Sentence, meta: Metaphor) = {
+        pt.update(sen, meta)
+        md.update(meta)
+      }
+      new MetaphorSelector(".sentences ul", sentences, updatePt)
     }
   }
 

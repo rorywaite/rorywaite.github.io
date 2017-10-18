@@ -10,7 +10,7 @@ import mutable.Buffer
 class ParseTree(svgElement: String) {
   val POS_TO_IGNORE = Set("POS", "TO")
 
-  def update(data: Sentence) = {
+  def update(data: Sentence, meta: Metaphor) = {
     val Root = Word(0, "ROOT", "ROOT", "", "1", None)
     val words = Root +: data.word.map { w =>
       val idx = w.idx + 1
@@ -31,7 +31,7 @@ class ParseTree(svgElement: String) {
 
     val treeWidth = (wordWidth * words.length) - (wordWidth / 3)
     val leftOffset = treeWidth / 40;
-    def levelHeight(level: Int) = 2 + (Math.pow(level, 1.8) * 10)
+    def levelHeight(level: Int) = 2 + (Math.pow(level, 1.8) * 15)
     val spans = for {
       w <- words
       dep <- w.dep
@@ -44,7 +44,7 @@ class ParseTree(svgElement: String) {
       val subspanHeights = for {
         (w2, height) <- levels
         (w1start, w2end) = swapSpan(w1)
-        if (w2.idx >= w1start && w2.idx <= w2end)
+        if (w2.idx > w1start && w2.idx < w2end)
       } yield height
       val height = if (subspanHeights.isEmpty) 1 else subspanHeights.max + 1
       levels.put(w1._1, height)
@@ -56,13 +56,32 @@ class ParseTree(svgElement: String) {
     svg.selectAll("text, path").remove();
     svg.attr("width", treeWidth + ((2 * wordWidth) / 3)).attr("height", treeHeight + (wordHeight / 2));
 
+    val lengths = Buffer((0, 1))
+    data.text.split(" ").zipWithIndex.foldLeft(lengths) { (accum, tup) =>
+      val prev = accum.head
+      val count = prev._1 + tup._1.length + 1
+      val res = (count, tup._2 + 1)
+      print(tup)
+      print(" ")
+      print(res)
+      accum += res
+    }
+    val length2Index = Map(lengths: _*)
+    println(length2Index)
+    print(meta)
+    val sourceIdx = 0 //length2Index(meta.source.start)
+    val targetIdx = 0 //length2Index(meta.target.start)
+
     val wordTags = svg.selectAll(".word").data(words.toJSArray).enter()
       .append("text")
       .text((d: Word) => d.form)
-      .attr("class", (d: Word) => s"word w${d.idx}")
+      .attr("class", (d: Word, i: Int) =>
+        if (i == sourceIdx) s"word w${d.idx} active"
+        else if (i == targetIdx) s"word w${d.idx} active"
+        else s"word w${d.idx}")
       .attr("x", (d: Word) => leftOffset + (wordWidth * d.idx))
       .attr("y", treeHeight - wordHeight)
-      .on("mouseover", (d: Word, _, _) => {
+    /*.on("mouseover", (d: Word, _, _) => {
         svg.selectAll(".word, .dependency, .edge, .arrow").classed("active", false);
         svg.selectAll(".tag").attr("opacity", 0);
         svg.selectAll(s".w${d.idx}").classed("active", true);
@@ -72,7 +91,7 @@ class ParseTree(svgElement: String) {
         svg.selectAll(".word, .dependency, .edge, .arrow").classed("active", false);
         svg.selectAll(".tag").attr("opacity", 0);
         Unit
-      });
+      });*/
 
     val tags = svg.selectAll(".tag").data(words.toJSArray).enter()
       .append("text")

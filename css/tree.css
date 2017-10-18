@@ -1,3 +1,18 @@
+body {
+	background-color: #21262b;
+	color: white;
+	font-family: futura-light;
+}
+
+h1{
+	color: #fb3744;
+	text-align: center;
+}
+
+concept{
+	font-weight: bold;
+}
+
 .tree {
 	font-size: 14px;
 	text-align: center;
@@ -44,30 +59,43 @@
 	float: left;
 	padding-left: 0;
 	margin: 20px 0;
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: large;
 }
 .metanet_viewer{
 	width: 70%;
 } 
 .source{
-	background-color: #00FF00;
+	background-color: #9f1bfe;
 	border-radius:10px;
-	border: 2px solid #00FF00;
-	box-shadow: 1px 2px 1px #888888;
+	border: 2px solid #9f1bfe;
 	cursor: pointer;
-	color: #FF0000;
-	
 }
-.target{
-	background-color: #FF0000;
+
+.source .conceptbox{
 	border-radius:10px;
-	border: 2px solid #FF0000;
-	box-shadow: 1px 2px 1px #888888;
+	border: 2px solid #b866fe;
+	background-color: #b866fe;
+	padding: 10px;
+}
+
+.target{
+	border-radius:10px;
+	background-color: #c12ab5;
+	border: 2px solid #c12ab5;
 	cursor: pointer;
-	color: #00FF00;
+}
+
+.target .conceptbox{
+	border-radius:10px;
+	border: 2px solid #ff4d88;
+	background-color: #ff4d88;
+	padding: 10px;
 }
 
 .parseFail{
 	color: #888888;
+}
+
+.frame{
+	font-size: large;	
 }

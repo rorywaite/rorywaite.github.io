@@ -8,6 +8,8 @@ scalaVersion in ThisBuild := "2.12.2"
 // This is an application with a main method
 scalaJSUseMainModuleInitializer := false
 
+scalacOptions ++= Seq("-deprecation")
+
 resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.1"
 libraryDependencies += "org.singlespaced" %%% "scalajs-d3" % "0.3.4"
