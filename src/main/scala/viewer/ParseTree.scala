@@ -13,7 +13,7 @@ class ParseTree(svgElement: String) {
   import ParseTree._
 
   val guidance = div(style := "margin-top: 20px; margin-bottom: 20px;")(
-    p(style := "text-align: left;")(
+    p(style := "text-align: left; font-size: large;")(
       """Metanet makes its decision based on a linguistic construct called a parse tree, 
     as shown below. Parsers can make mistakes that will cause errors in Metanet. You should check that 
     the metaphor makes sense given this linguistic information. For example, 

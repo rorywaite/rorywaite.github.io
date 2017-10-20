@@ -14,11 +14,11 @@ class MetaphorDescription(tag: String) {
   assert(elems.length == 1, s"Found ${elems.length} elements")
   val elem = elems(0)
   val guidance = div(
-    p(style := "text-align: left;")(
+    p(style := "text-align: left; font-size: large;")(
       "Below is a metaphor detected by Metanet. Two words are highlighted that represent semantic frames. The first is the ",
       span(`class` := "target")("target"), " frame, which anchors the sentence to its current sports context. The second is the ",
       span(`class` := "source")("source"), " frame, which provides a mapping to a non-sports context.  The target frame may or may not ",
-      "invoke a concept, however the source frame will always invoke a concept"))
+      "invoke a concept, however the source frame will always invoke a concept."))
 
   def update(sen: Sentence, metaphor: Metaphor) = {
     def frame(f: Frame, cls: String) = {
