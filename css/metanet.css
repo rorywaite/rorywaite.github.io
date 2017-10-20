@@ -4,17 +4,40 @@ body {
 	font-family: futura-light;
 }
 
+a:link {
+    color: #0090d9;
+}
+
+/* visited link */
+a:visited {
+    color: #0090d9;
+}
+
+/* mouse over link */
+a:hover {
+    color: #0090d9;
+}
+
+/* selected link */
+a:active {
+    color: #0090d9;
+}
+
 h1{
 	color: #fb3744;
 	text-align: center;
 }
 
-concept{
+.concept{
 	font-weight: bold;
 }
 
+.clickable{
+	cursor: pointer;
+}
+
 .tree {
-	font-size: 14px;
+	font-size: large;
 	text-align: center;
 	overflow-y: hidden;
 	overflow-x: auto;
@@ -23,32 +46,49 @@ concept{
 	text-anchor: middle;
 }
 .word {
-	fill: #555;
+	fill: #888888;
 	cursor: default;
 }
 .tag {
-	fill: #777;
+	fill: #888888;
 	font-size: .9em;
 }
 .edge, .arrow {
 	fill: none;
-	stroke: #ccc;
+	stroke: #888888;
 	stroke-width: 1.5;
+	font-size: .9em;
 }
 .dependency {
-	fill: #ccc;
+	fill: #888888;
 	font-size: 15px;
 }
 
 .dependency.active {
-	fill: #3276b1;
+	fill: white;
 }
-.word.active, .edge.active, .arrow.active {
-	stroke: #3276b1;
+.edge.active, .arrow.active {
+	stroke: white;
 }
-.word.w0 {
-	fill: #ccc;
+
+.word.source{
+	fill: #9f1bfe;
 }
+
+.word.target{
+	fill: #c12ab5;
+}
+
+.tag.source{
+	visibility: visible;
+	fill: white;
+}
+
+.tag.target{
+	visibility: visible;
+	fill: white;
+}
+
 .sentences {
 	width: 25%;
 }
@@ -68,7 +108,6 @@ concept{
 	background-color: #9f1bfe;
 	border-radius:10px;
 	border: 2px solid #9f1bfe;
-	cursor: pointer;
 }
 
 .source .conceptbox{
@@ -82,7 +121,6 @@ concept{
 	border-radius:10px;
 	background-color: #c12ab5;
 	border: 2px solid #c12ab5;
-	cursor: pointer;
 }
 
 .target .conceptbox{

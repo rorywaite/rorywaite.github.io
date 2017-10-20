@@ -12,10 +12,10 @@ import dom.ext.Ajax
 import scala.scalajs.js.annotation._
 
 case class Dep(head: String, `type`: String)
-case class Word(idx: Int, form: String, lem: String, pos: String, n: String, dep: Option[Dep])
+case class Word(start: Option[Int], idx: Int, form: String, lem: String, pos: String, n: String, dep: Option[Dep])
 case class Sentence(idx: Int, text: String, ctext: String, id: String, word: Seq[Word], lms: Option[Seq[Metaphor]])
-case class Frame(start: Int, end: Int, form: String, framenames: Option[Seq[String]], framefamilies: Option[Seq[String]])
-case class Metaphor(source: Frame, target: Frame)
+case class Frame(start: Int, end: Int, form: String, lemma: String, framenames: Option[Seq[String]], framefamilies: Option[Seq[String]])
+case class Metaphor(source: Frame, target: Frame, score: Double)
 
 @JSExportTopLevel("MetaNet")
 object MetaNet {
@@ -42,22 +42,10 @@ object MetaNet {
       val md = new MetaphorDescription(".metaphor")
       def updatePt(sen: Sentence, meta: Metaphor) = {
         pt.update(sen, meta)
-        md.update(meta)
+        md.update(sen, meta)
       }
       new MetaphorSelector(".sentences ul", sentences, updatePt)
     }
   }
-
-  /*const data = [];
-  data.push({ id: 0, word: 'ROOT', tag: 'ROOT', level: 0 });
-  for (let w of mnData.word){
-    let depType = '', depHead = 0;
-    if(w.dep){
-      depType = w.dep.type
-      depHead = Number(w.dep.head)
-    }
-    data.push({id: Number(w.n), word: w.form, dependency: depType, parent: depHead, tag: w.rpos, level: 1});
-  }
-  return data*/
 
 }
